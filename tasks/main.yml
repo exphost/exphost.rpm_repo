@@ -1,0 +1,34 @@
+- name: deb
+  debug:
+    msg: "jeste rpm repe"
+
+- block:
+  - name: install createrepo
+    yum:
+      name: createrepo
+      state: installed
+
+  - name: create dir for repo
+    file:
+      path: "{{app.value.rpm_repo.configs.path}}"
+      state: directory
+      setype: httpd_sys_content_t
+
+  - name: create dir for scripts
+    file:
+      path: "/opt/scripts"
+      state: directory
+
+  - name: copy script for repo creation
+    template:
+      src: regenerate_repo.sh
+      dest: "/opt/scripts/{{app.key}}_regenerate_repo.sh"
+      mode: 0755
+    notify:
+      - regenerate_repo
+
+  - name: add regenerate to cron
+    cron:
+      name: "{{app.key}} repo regenerate"
+      job: "/opt/scripts/{{app.key}}_regenerate_repo.sh"
+  become: True

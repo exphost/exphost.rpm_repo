@@ -1,0 +1,3 @@
+- name: regenerate_repo
+  command: "/opt/scripts/{{app.key}}_regenerate_repo.sh"
+  become: True
