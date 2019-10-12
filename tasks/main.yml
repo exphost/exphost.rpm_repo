@@ -12,7 +12,10 @@
     file:
       path: "{{app.value.rpm_repo.configs.path}}"
       state: directory
+      group: repo_uploader
+      mode: 0775
       setype: httpd_sys_content_t
+
 
   - name: create dir for scripts
     file:
