@@ -33,5 +33,5 @@
   - name: add regenerate to cron
     cron:
       name: "{{app.key}} repo regenerate"
-      job: "/opt/scripts/{{app.key}}_regenerate_repo.sh"
+      job: "/opt/scripts/{{app.key}}_regenerate_repo.sh >/dev/null"
   become: True
