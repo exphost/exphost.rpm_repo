@@ -34,4 +34,5 @@
     cron:
       name: "{{app.key}} repo regenerate"
       job: "/opt/scripts/{{app.key}}_regenerate_repo.sh >/dev/null"
+      minute: "*/5"
   become: True
